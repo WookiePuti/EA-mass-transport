@@ -62,7 +62,7 @@ def create_rand_sol(route: nx.DiGraph, num_of_bus=1, default_start_node=1):
         actual_node = 1
         for node in range(route.number_of_nodes()-1):
             temp_succesors = list(route.successors(actual_node))
-            actual_node = temp_succesors[np.random.randint(0, (len(temp_succesors)-1))]
+            actual_node = temp_succesors[np.random.randint(0, len(temp_succesors))]
             sol[num_of_bus-1, node+1] = actual_node
     return sol
 
@@ -70,9 +70,9 @@ def create_rand_sol(route: nx.DiGraph, num_of_bus=1, default_start_node=1):
 
 # tworzenie populacji startowej
 def create_first_pop(route, amount_of_pop):
-    population = np.array([])
+    population = []
     for solution in range(amount_of_pop):
-        population = np.append(population, create_rand_sol(route))
+        population.append(create_rand_sol(route))
     return population
 
 
