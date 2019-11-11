@@ -41,7 +41,8 @@ route_graph.add_weighted_edges_from(graph_struct)
 
 def create_dest_mat(n, b_stop_capacity=20):
     passenger_counter = 0
-    mat = np.zeros(n, n)
+
+    mat = np.zeros((n, n))
     for i in range(n):
         for j in range(n):
             if i != j:
@@ -78,5 +79,3 @@ def create_first_pop(route, amount_of_pop):
 
 c1 = create_first_pop(route_graph, 10)
 print(c1)
-
-
