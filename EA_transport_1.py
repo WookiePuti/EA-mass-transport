@@ -2,13 +2,16 @@ import numpy as np
 import networkx as nx
 import matplotlib as plt
 
+from copy import deepcopy
+
 from obj_fun import obj_fun
 from Crossover_operator import crossover_oper
 
 ###################################
 # TODO
-# tworzenie populacji startowej
+# tworzenie populacji startowej ////////// no chyba done LP
 # funkcja celu
+# Metoda selekcji
 # Operator krzyzowania
 # Operator mutacji
 #######################################
@@ -32,8 +35,8 @@ start_pop_size = None   #liczebnosc poczatkowej populacji
 # v 0.1 mamy n wierzcholkow, kazdy jest polaczony z kazdym
 
 
-graph_struct = np.array([(1, 2, 1), (2, 3, 2), (1, 3, 4), (3, 1, 4), (3, 2, 3), (2, 1, 2)])   #example structure
-route_graph = nx.DiGraph()
+graph_struct = np.array([(1, 2, 1), (2, 3, 2), (1, 3, 4)])   #example structure
+route_graph = nx.Graph()
 route_graph.add_weighted_edges_from(graph_struct)
 
 
@@ -55,16 +58,16 @@ def create_dest_mat(n, b_stop_capacity=20):
 #tworzenie losowego rozwiazania
 # v 0.1 zakladamy ze n=1 to startowy i koncowy, przechodzac do nastepnego wierzcholak losujemy z sukcesorow
 
-def create_rand_sol(route: nx.DiGraph, num_of_bus=1, default_start_node=1):
-    sol = np.zeros((num_of_bus, (route.number_of_nodes()+1)), dtype=int)
+def create_rand_sol(route: nx.Graph, num_of_bus=1, min_route_length=2):
+    sol = []
     for bus in range(num_of_bus):
-        sol[num_of_bus-1, 0] = default_start_node
-        sol[num_of_bus-1, route.number_of_nodes()] = 1
-        actual_node = 1
-        for node in range(route.number_of_nodes()-1):
-            temp_succesors = list(route.successors(actual_node))
-            actual_node = temp_succesors[np.random.randint(0, len(temp_succesors))]
-            sol[num_of_bus-1, node+1] = actual_node
+        sol.append([])
+        route_length = np.random.randint(min_route_length, route.number_of_nodes()+1)
+        actual_node = np.random.randint(1, route.number_of_nodes())
+        for node in range(route_length):
+            temp_neighbors = list(route.neighbors(actual_node))
+            actual_node = temp_neighbors[np.random.randint(0, len(temp_neighbors))]
+            sol[bus].append(actual_node)
     return sol
 
 
@@ -79,3 +82,5 @@ def create_first_pop(route, amount_of_pop):
 
 c1 = create_first_pop(route_graph, 10)
 print(c1)
+mat = create_dest_mat(3)
+print(obj_fun(c1[0], mat, route_graph))

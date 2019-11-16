@@ -2,7 +2,10 @@
 import numpy as np
 import networkx as nx
 
-def obj_fun(curr_pop: np.array, dest_mat):
+from typing import List
+
+'''
+def obj_fun(curr_pop: List, dest_mat):
     ticket_cost = 5
     const_cost = 1
     fuel_cost = 2
@@ -13,3 +16,24 @@ def obj_fun(curr_pop: np.array, dest_mat):
             if curr_pop[num_of_bus][x+1] != curr_pop[num_of_bus][x]:
                 temp_dest_fun+=dest_mat[curr_pop[num_of_bus][x]][curr_pop[num_of_bus][x+1]]*ticket_cost-const_cost
     return temp_dest_fun
+'''
+
+
+def obj_fun(solution: List, dest_mat, route: nx.Graph,  ticket_cost=5, fuel_cost=2, start_cost=10):
+    const_cost = 1
+    temp_dest_fun = 0
+    sol_cost = 0
+    num_of_passengers = 0
+    route_weight = 0
+    for bus in solution:
+        sol_cost = sol_cost - start_cost      #koszt uruchomienia autobusu
+        bus_stop_combinations = []      #wszystkie kombinacje przystankow source->destination
+        for b_stop in range(len(bus)-1):
+            route_weight += route.get_edge_data(bus[b_stop], bus[b_stop+1])['weight']   #suma wag krawedzi tworzacej trasy
+            for comb in range(len(bus)-1-b_stop):
+                bus_stop_combinations.append([bus[b_stop], bus[comb]])
+        for combination in bus_stop_combinations:
+            num_of_passengers += dest_mat[combination[0]-1][combination[1]-1]
+    sol_cost += num_of_passengers * ticket_cost     # dochod bilety
+    sol_cost = sol_cost - route_weight*fuel_cost
+    return sol_cost
