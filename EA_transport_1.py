@@ -58,8 +58,9 @@ def create_dest_mat(n, b_stop_capacity=20):
 #tworzenie losowego rozwiazania
 # v 0.1 zakladamy ze n=1 to startowy i koncowy, przechodzac do nastepnego wierzcholak losujemy z sukcesorow
 
-def create_rand_sol(route: nx.Graph, num_of_bus=1, min_route_length=2):
+def create_rand_sol(route: nx.Graph, max_num_of_bus=3, min_route_length=2):
     sol = []
+    num_of_bus = np.random.randint(1, max_num_of_bus+1)
     for bus in range(num_of_bus):
         sol.append([])
         route_length = np.random.randint(min_route_length, route.number_of_nodes()+1)
