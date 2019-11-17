@@ -82,6 +82,8 @@ def create_first_pop(route, amount_of_pop):
 
 
 c1 = create_first_pop(route_graph, 10)
-print(c1)
+for n in c1:
+    print (n)
+#print(c1)
 mat = create_dest_mat(3)
 print(obj_fun(c1[0], mat, route_graph))
