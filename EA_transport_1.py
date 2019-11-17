@@ -5,6 +5,7 @@ import matplotlib as plt
 from copy import deepcopy
 
 from obj_fun import obj_fun
+from Selection import selection
 from Crossover_operator import crossover_oper
 
 ###################################
@@ -83,7 +84,16 @@ def create_first_pop(route, amount_of_pop):
 
 c1 = create_first_pop(route_graph, 10)
 for n in c1:
-    print (n)
-#print(c1)
+    print(n)
+
 mat = create_dest_mat(3)
-print(obj_fun(c1[0], mat, route_graph))
+
+print('pasue')
+#print(obj_fun(c1[0], mat, route_graph))
+
+parents = selection(c1, mat, route_graph)
+print('pause')
+
+for n in parents:
+    print(n)
+
