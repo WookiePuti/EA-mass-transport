@@ -7,6 +7,9 @@ from copy import deepcopy
 from obj_fun import obj_fun
 from Selection import selection
 from Crossover_operator import crossover_oper
+from Mutation import mutate1, mutate2
+from Simulation import simulate_EA
+from Visualize import visualize_best_route
 
 ###################################
 # TODO
@@ -23,9 +26,10 @@ from Crossover_operator import crossover_oper
 
 #paramentry  symulacji
 
-num_of_obj_fun = None   #liczba wywolan funkcji celu
+num_of_obj_fun = 100   #liczba wywolan funkcji celu
 stop_cond = None        #warunek stopu
-start_pop_size = None   #liczebnosc poczatkowej populacji
+start_pop_size = 100    #liczebnosc poczatkowej populacji
+mutate_prob = 0.6
 ################################################################
 
 
@@ -82,18 +86,21 @@ def create_first_pop(route, amount_of_pop):
     return population
 
 
-c1 = create_first_pop(route_graph, 10)
-for n in c1:
-    print(n)
-
 mat = create_dest_mat(3)
+c1 = create_first_pop(route_graph, 10)
 
-print('pasue')
-#print(obj_fun(c1[0], mat, route_graph))
+#print(simulate_EA(route_graph, start_pop_size, mat, mutate_prob))
 
-parents = selection(c1, mat, route_graph)
-print('pause')
+s1 = [[1,2,3]]
+s2 =  [[2,3]]
+#print(s1,s2)
+#print(crossover_oper(s1,s2, route_graph))
+best_sol = simulate_EA(route_graph, start_pop_size, mat, mutate_prob, num_of_obj_fun)
+print(best_sol)
+'''
 
-for n in parents:
-    print(n)
 
+print(best_sol)
+
+visualize_best_route(route_graph)
+'''

@@ -4,6 +4,9 @@ import networkx as nx
 
 from typing import List
 
+#zmienna globalna zliczajaca ilosc iteracji f celu
+num_of_obj = 0
+
 '''
 def obj_fun(curr_pop: List, dest_mat):
     ticket_cost = 5
@@ -26,14 +29,20 @@ def obj_fun(solution: List, dest_mat, route: nx.Graph,  ticket_cost=5, fuel_cost
     num_of_passengers = 0
     route_weight = 0
     for bus in solution:
+        #print('bus',bus)
         sol_cost = sol_cost - start_cost      #koszt uruchomienia autobusu
         bus_stop_combinations = []      #wszystkie kombinacje przystankow source->destination
         for b_stop in range(len(bus)-1):
             route_weight += route.get_edge_data(bus[b_stop], bus[b_stop+1])['weight']   #suma wag krawedzi tworzacej trasy
+
+            #print([bus[b_stop], bus[b_stop+1]])
+            #print(route.get_edge_data(bus[b_stop], bus[b_stop+1])['weight'])
             for comb in range(len(bus)-1-b_stop):
                 bus_stop_combinations.append([bus[b_stop], bus[comb]])
         for combination in bus_stop_combinations:
             num_of_passengers += dest_mat[combination[0]-1][combination[1]-1]
     sol_cost += num_of_passengers * ticket_cost     # dochod bilety
     sol_cost = sol_cost - route_weight*fuel_cost
+    global num_of_obj
+    num_of_obj += 1
     return sol_cost
