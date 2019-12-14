@@ -97,10 +97,7 @@ s2 =  [[2,3]]
 #print(crossover_oper(s1,s2, route_graph))
 best_sol = simulate_EA(route_graph, start_pop_size, mat, mutate_prob, num_of_obj_fun)
 print(best_sol)
-'''
 
 
-print(best_sol)
 
-visualize_best_route(route_graph)
-'''
+visualize_best_route(route_graph, best_sol)
