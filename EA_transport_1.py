@@ -1,6 +1,6 @@
 import numpy as np
 import networkx as nx
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 from copy import deepcopy
 
@@ -10,6 +10,7 @@ from Crossover_operator import crossover_oper
 from Mutation import mutate1, mutate2
 from Simulation import simulate_EA
 from Visualize import visualize_best_route
+from IO_from_file import create_new_dest_mat_file, load_dest_mat_from_file, create_to_file_graph, load_route_graph_from_file
 
 ###################################
 # TODO
@@ -45,19 +46,7 @@ route_graph = nx.Graph()
 route_graph.add_weighted_edges_from(graph_struct)
 
 
-#tworzenie macierzy opisujacej cele podrozy pasazerow
 
-def create_dest_mat(n, b_stop_capacity=20):
-    passenger_counter = 0
-
-    mat = np.zeros((n, n))
-    for i in range(n):
-        for j in range(n):
-            if i != j:
-                mat[i, j] = np.random.randint(0, (b_stop_capacity-passenger_counter))
-                passenger_counter += mat[i, j]
-
-    return mat
 
 
 #tworzenie losowego rozwiazania
@@ -86,7 +75,7 @@ def create_first_pop(route, amount_of_pop):
     return population
 
 
-mat = create_dest_mat(3)
+mat = load_dest_mat_from_file()
 c1 = create_first_pop(route_graph, 10)
 
 #print(simulate_EA(route_graph, start_pop_size, mat, mutate_prob))
@@ -95,9 +84,13 @@ s1 = [[1,2,3]]
 s2 =  [[2,3]]
 #print(s1,s2)
 #print(crossover_oper(s1,s2, route_graph))
+create_to_file_graph(10)
+route_graph = load_route_graph_from_file()
 best_sol = simulate_EA(route_graph, start_pop_size, mat, mutate_prob, num_of_obj_fun)
 print(best_sol)
 
 
+
+#print(route_graph.edges([1,2]))
 
 visualize_best_route(route_graph, best_sol)

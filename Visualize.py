@@ -38,7 +38,7 @@ def visualize_best_route(route: nx.Graph, best_sol: List):
     nx.draw_networkx_labels(route, pos, font_size=20)
     plt.show()'''
 
-    pos = nx.spring_layout(route)
+    pos = nx.circular_layout(route)
 
     #nodes_basic = nx.draw_networkx_nodes(route, pos, node_size=600)
     #edges_basic = nx.draw_networkx_edges(
@@ -77,7 +77,7 @@ def visualize_best_route(route: nx.Graph, best_sol: List):
             nx.draw_networkx_edges(
                 line_graph,
                 pos,
-                edge_color=(np.random.rand(), np.random.rand(), np.random.rand()),
+                edge_color='r',
                 arrowsize=15,
                 width=2,
                 ax=ax[idx]
@@ -95,7 +95,7 @@ def visualize_best_route(route: nx.Graph, best_sol: List):
         nx.draw_networkx_edges(
             directed_graph_lines[0],
             pos,
-            edge_color=(np.random.rand(), np.random.rand(), np.random.rand()),
+            edge_color='r',
             arrowsize=15,
             width=2,
 
