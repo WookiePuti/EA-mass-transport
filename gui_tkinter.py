@@ -52,7 +52,9 @@ class ParameterContainer():
 
 class Ea_tranapp(tk.Tk):
     def __init__(self, *args, **kwargs):
-        param_container = ParameterContainer()
+        global graph_size
+        create_new_dest_mat_file(graph_size)
+        create_to_file_graph(graph_size)
         tk.Tk.__init__(self, *args, **kwargs)
         tk.Tk.wm_title(self, 'EA mass transport PPP')
         container = tk.Frame(self)

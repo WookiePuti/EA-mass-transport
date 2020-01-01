@@ -85,6 +85,7 @@ s2 =  [[2,3]]
 #print(s1,s2)
 #print(crossover_oper(s1,s2, route_graph))
 create_to_file_graph(10)
+create_new_dest_mat_file(10)
 route_graph = load_route_graph_from_file()
 best_sol = simulate_EA(route_graph, start_pop_size, mat, mutate_prob, num_of_obj_fun)
 #print(best_sol)
