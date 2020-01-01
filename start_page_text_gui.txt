@@ -1,0 +1,9 @@
+Matematyczne Metody Wspomagania Decyzji
+"Algorytm ewolucyjny w planowaniu tras komunikacyjnych"
+Akademia Gorniczo-Hutnicza w Krakowie
+Wydział Elektrotechniki, Automatyki, Informatyki i Inzynierii Biomedycznej
+Autorzy:
+Paszek Mateusz
+Pekala Jacek
+Puton Lukasz
+05.01.2020

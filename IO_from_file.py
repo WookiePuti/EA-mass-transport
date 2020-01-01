@@ -16,12 +16,14 @@ def create_dest_mat(n, b_stop_capacity=20):
 
     return mat
 
+
 def create_route_complete_graph(num_of_nodes, max_route_weight=10):
     graph = nx.complete_graph(num_of_nodes)
     for (node1, node2) in graph.edges():
         graph.edges[node1,node2]['weight'] = np.random.randint(1, max_route_weight)
     graph = nx.relabel_nodes(graph, lambda x: x + 1, copy=False)
     return graph
+
 
 def create_new_dest_mat_file(num_of_bus_stop, file_name='dest_mat.csv', bus_stop_capacity=20):
     np.savetxt(file_name, create_dest_mat(num_of_bus_stop, bus_stop_capacity), delimiter=',')

@@ -23,7 +23,7 @@ def obj_fun(curr_pop: List, dest_mat):
 '''
 
 
-def obj_fun(solution: List, dest_mat, route: nx.Graph,  ticket_cost=5, fuel_cost=2, start_cost=10):
+def obj_fun(solution: List, dest_mat, route: nx.Graph,  ticket_cost, fuel_cost, start_cost):
     const_cost = 1
     temp_dest_fun = 0
     sol_cost = 0

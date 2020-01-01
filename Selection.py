@@ -19,10 +19,10 @@ def selection(population: List, dest_mat, route_graph, parents_div=5):
     return parents_list
 '''
  #zwracanie najleposzego
-def selection_best_end(population: List, dest_mat, route_graph: nx.Graph):
+def selection_best_end(population: List, dest_mat, route_graph: nx.Graph, ticket_cost, fuel_cost, start_cost):
     obj_fun_dict = {}
     for elem in range(len(population)):
-        obj_fun_dict[elem] = obj_fun(population[elem], dest_mat, route_graph)
+        obj_fun_dict[elem] = obj_fun(population[elem], dest_mat, route_graph, ticket_cost, fuel_cost, start_cost)
 
     sorted_obj_fun_dict = sorted(obj_fun_dict.items(), key=itemgetter(1))  #sortowanie po wartości słownika
     return [population[sorted_obj_fun_dict[-1][0]], sorted_obj_fun_dict[-1][1]]
@@ -45,10 +45,10 @@ def selection_basic(population: List, dest_mat, route_graph, parents_div=5):
 # selekcja rankingowa liniowa plus ruletka
 
 
-def selection(population: List, dest_mat, route_graph, linear_coef=1.5, parents_div=2):
+def selection(population: List, dest_mat, route_graph, linear_coef, parents_div, ticket_cost, fuel_cost, start_cost):
     obj_fun_dict = {}
     for elem in range(len(population)):
-        obj_fun_dict[elem]=obj_fun(population[elem], dest_mat, route_graph)
+        obj_fun_dict[elem]=obj_fun(population[elem], dest_mat, route_graph, ticket_cost, fuel_cost, start_cost)
 
     sorted_obj_fun_dict = sorted(obj_fun_dict.items(), key=itemgetter(1))  #sortowanie po wartości słownika
 

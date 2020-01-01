@@ -87,10 +87,10 @@ s2 =  [[2,3]]
 create_to_file_graph(10)
 route_graph = load_route_graph_from_file()
 best_sol = simulate_EA(route_graph, start_pop_size, mat, mutate_prob, num_of_obj_fun)
-print(best_sol)
+#print(best_sol)
 
 
 
 #print(route_graph.edges([1,2]))
 
-visualize_best_route(route_graph, best_sol)
+#visualize_best_route(route_graph, best_sol)

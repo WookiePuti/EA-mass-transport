@@ -37,11 +37,13 @@ def create_first_pop(route, amount_of_pop):
     return population
 
 
-def simulate_EA(route, start_pop_size, dest_mat, mutate_prob, num_obj_iter):
+def simulate_EA(route, start_pop_size, dest_mat, mutate_prob, num_obj_iter, linear_coef=1.5, parents_div=2,
+                ticket_cost=5, fuel_cost=2, start_cost=10):
     parents = create_first_pop(route, start_pop_size)
     while obj_fun.num_of_obj < num_obj_iter:
         counter = 0
-        parents = selection(parents, dest_mat, route)
+        parents = selection(parents, dest_mat, route, linear_coef, parents_div,
+                ticket_cost, fuel_cost, start_cost)
         children = []
         while counter < start_pop_size:
             operation_kind = np.random.rand()
@@ -56,4 +58,4 @@ def simulate_EA(route, start_pop_size, dest_mat, mutate_prob, num_obj_iter):
                     children.append(sol)
                 counter += 2
         parents = children
-    return selection_best_end(parents, dest_mat, route)
+    return selection_best_end(parents, dest_mat, route, ticket_cost, fuel_cost, start_cost)
