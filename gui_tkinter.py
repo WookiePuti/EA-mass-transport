@@ -288,7 +288,7 @@ class ParameterPage(tk.Frame):
         btn_new_mat.grid(row=50)
 
         #Parametry kosztow
-        cost_lbl = tk.Label(self, text='Cost parameters')
+        cost_lbl = tk.Label(self, text='Cost parameters', font=LARGE_FONT)
         cost_lbl.grid(row=47, column=3, sticky='w')
 
 
