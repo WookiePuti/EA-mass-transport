@@ -208,10 +208,19 @@ class DefaultPage(tk.Frame):
 
     @staticmethod
     def run_sim(self):
+        global nobjfun
+        global mut
+        global pop_size
+        global par_size
+        global sel_coef
+        global graph_size
+        global ticket
+        global fuel
+        global line
         route_graph = load_route_graph_from_file()
         mat = load_dest_mat_from_file()
 
-        best_sol = simulate_EA(route_graph, 100, mat, 0.6, 100)
+        best_sol = simulate_EA(route_graph, pop_size, mat, mut, nobjfun, sel_coef, par_size, ticket, fuel, line)
         print(best_sol)
         self.lbl_income.config(text='Generated income: {}'.format(best_sol[1]))
         routes_str =''
@@ -358,10 +367,11 @@ class ParameterPage(tk.Frame):
         ticket = float(self.ticket_ent.get())
         fuel = float(self.fuel_ent.get())
         line = float(self.line_ent.get())
-        print(nobjfun)
 
     def print_entry(self):
+        global nobjfun
         print(self.nobjfun_ent.get())
+        print(nobjfun)
 
 
 
