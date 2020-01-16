@@ -29,10 +29,10 @@ def selection_best_end(population: List, dest_mat, route_graph: nx.Graph, ticket
 
 
 # ta jest dobra zwykla
-def selection_basic(population: List, dest_mat, route_graph, parents_div=5):
+def selection_basic(population: List, dest_mat, route_graph, linear_coef, parents_div, ticket_cost, fuel_cost, start_cost):
     obj_fun_dict = {}
     for elem in range(len(population)):
-        obj_fun_dict[elem] = obj_fun(population[elem], dest_mat, route_graph)
+        obj_fun_dict[elem] = obj_fun(population[elem], dest_mat, route_graph, ticket_cost, fuel_cost, start_cost)
 
     sorted_obj_fun_dict = sorted(obj_fun_dict.items(), key=itemgetter(1))  #sortowanie po wartości słownika
 
@@ -60,14 +60,13 @@ def selection(population: List, dest_mat, route_graph, linear_coef, parents_div,
     eta_min = 2-linear_coef
     for idx, elem in enumerate(sorted_obj_fun_dict):
         probability_list.append((1/lambda_c)*(eta_max-(eta_max-eta_min)*idx/(lambda_c-1)))
-    probability_list.reverse()
+    #probability_list.reverse()
 
     probability_list_sum = []
     sum_prob = 0
     for elem in probability_list:
         probability_list_sum.append(sum_prob + elem)
         sum_prob += elem
-
     for i in range(len(sorted_obj_fun_dict)//parents_div):
         rand_prob = np.random.sample()
         filtered_roulette = (idx for idx, elem in enumerate(probability_list_sum) if elem > rand_prob)

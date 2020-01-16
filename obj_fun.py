@@ -7,6 +7,7 @@ from copy import deepcopy
 
 #zmienna globalna zliczajaca ilosc iteracji f celu
 num_of_obj = 0
+iter_stats = []
 
 '''
 def obj_fun(curr_pop: List, dest_mat):
@@ -48,4 +49,6 @@ def obj_fun(solution: List, dest_mat, route: nx.Graph,  ticket_cost, fuel_cost, 
     sol_cost = sol_cost - route_weight*fuel_cost
     global num_of_obj
     num_of_obj += 1
+    global iter_stats
+    iter_stats.append(sol_cost)
     return sol_cost

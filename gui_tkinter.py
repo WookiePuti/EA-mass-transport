@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
-from EA_transport_1 import simulate_EA, load_route_graph_from_file, load_dest_mat_from_file, create_to_file_graph, create_new_dest_mat_file
+from EA_transport_1 import simulate_EA, load_route_graph_from_file, load_dest_mat_from_file, create_to_file_graph, create_new_dest_mat_file, visualize_best_parent_stats
 import networkx as nx
 from copy import deepcopy
 from typing import List
@@ -229,6 +229,7 @@ class DefaultPage(tk.Frame):
             routes_str += str(route)
         self.lbl_routes.config(text='Generated best routes:'+routes_str)
         self.visualize_graph(route_graph, best_sol)
+        visualize_best_parent_stats()
 
 
 class ParameterPage(tk.Frame):

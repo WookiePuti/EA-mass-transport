@@ -1,10 +1,12 @@
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
+import matplotlib
 
 from typing import List
 from copy import deepcopy
-
+from obj_fun import iter_stats
+from Simulation import best_parent_stats
 
 def visualize_best_route(route: nx.Graph, best_sol: List):
     '''
@@ -102,4 +104,21 @@ def visualize_best_route(route: nx.Graph, best_sol: List):
         )
         plt.title('Linia numer {}'.format(1), fontsize=10)
 
+        plt.show()
+
+
+def visualize_iter_stats():
+    matplotlib.use('Qt5Agg')
+    global iter_stats
+    x = list(range(len(iter_stats)))
+    plt.plot(x, iter_stats)
+    plt.title('Wartosc funkcji celu w kazdym jej wywolaniu')
+    plt.show()
+
+def visualize_best_parent_stats():
+    matplotlib.use('Qt5Agg')
+    global best_parent_stats
+    x = list(range(len(best_parent_stats)))
+    plt.plot(x, best_parent_stats)
+    plt.title('Wartosc funkcji celu najlepszego rozwiazania podczas selekcji')
     plt.show()

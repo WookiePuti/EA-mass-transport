@@ -9,7 +9,7 @@ from Selection import selection
 from Crossover_operator import crossover_oper
 from Mutation import mutate1, mutate2
 from Simulation import simulate_EA
-from Visualize import visualize_best_route
+from Visualize import visualize_best_route, visualize_iter_stats, visualize_best_parent_stats
 from IO_from_file import create_new_dest_mat_file, load_dest_mat_from_file, create_to_file_graph, load_route_graph_from_file
 
 ###################################
@@ -27,10 +27,11 @@ from IO_from_file import create_new_dest_mat_file, load_dest_mat_from_file, crea
 
 #paramentry  symulacji
 
-num_of_obj_fun = 100   #liczba wywolan funkcji celu
+num_of_obj_fun = 10000   #liczba wywolan funkcji celu
 stop_cond = None        #warunek stopu
 start_pop_size = 100    #liczebnosc poczatkowej populacji
 mutate_prob = 0.6
+linear = 1.9
 ################################################################
 
 
@@ -52,7 +53,7 @@ route_graph.add_weighted_edges_from(graph_struct)
 #tworzenie losowego rozwiazania
 # v 0.1 zakladamy ze n=1 to startowy i koncowy, przechodzac do nastepnego wierzcholak losujemy z sukcesorow
 
-def create_rand_sol(route: nx.Graph, max_num_of_bus=3, min_route_length=2):
+def create_rand_sol(route: nx.Graph, max_num_of_bus=9, min_route_length=2):
     sol = []
     num_of_bus = np.random.randint(1, max_num_of_bus+1)
     for bus in range(num_of_bus):
@@ -87,10 +88,11 @@ s2 =  [[2,3]]
 create_to_file_graph(10)
 create_new_dest_mat_file(10)
 route_graph = load_route_graph_from_file()
-best_sol = simulate_EA(route_graph, start_pop_size, mat, mutate_prob, num_of_obj_fun)
-#print(best_sol)
+best_sol = simulate_EA(route_graph, start_pop_size, mat, mutate_prob, num_of_obj_fun, linear)
 
-
+print(best_sol)
+visualize_iter_stats()
+visualize_best_parent_stats()
 
 #print(route_graph.edges([1,2]))
 

@@ -5,17 +5,18 @@ import numpy as np
 import networkx as nx
 
 from obj_fun import obj_fun
-from Selection import selection, selection_best_end
+from Selection import selection, selection_best_end, selection_basic
 from Crossover_operator import crossover_oper
 from Mutation import mutate1, mutate2
 
 from copy import deepcopy
 import obj_fun
 
+best_parent_stats = []
 
 #tworzenie losowego rozwiazania
 
-def create_rand_sol(route: nx.Graph, max_num_of_bus=3, min_route_length=2):
+def create_rand_sol(route: nx.Graph, max_num_of_bus=5, min_route_length=2):
     sol = []
     num_of_bus = np.random.randint(1, max_num_of_bus+1)
     for bus in range(num_of_bus):
@@ -43,7 +44,11 @@ def simulate_EA(route, start_pop_size, dest_mat, mutate_prob, num_obj_iter, line
     while obj_fun.num_of_obj < num_obj_iter:
         counter = 0
         parents = selection(parents, dest_mat, route, linear_coef, parents_div,
-                ticket_cost, fuel_cost, start_cost)
+                                  ticket_cost, fuel_cost, start_cost)
+        global best_parent_stats
+        best_parent_stats.append(obj_fun.obj_fun(selection_best_end(parents, dest_mat, route, ticket_cost, fuel_cost, start_cost)[0],
+                                                 dest_mat, route, ticket_cost, fuel_cost, start_cost))
+
         children = []
         while counter < start_pop_size:
             operation_kind = np.random.rand()
@@ -58,4 +63,7 @@ def simulate_EA(route, start_pop_size, dest_mat, mutate_prob, num_obj_iter, line
                     children.append(sol)
                 counter += 2
         parents = children
+        best_parent_stats.append(
+            obj_fun.obj_fun(selection_best_end(parents, dest_mat, route, ticket_cost, fuel_cost, start_cost)[0],
+                            dest_mat, route, ticket_cost, fuel_cost, start_cost))
     return selection_best_end(parents, dest_mat, route, ticket_cost, fuel_cost, start_cost)
